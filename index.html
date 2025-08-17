@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jorge André — Filmmaker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+  <meta name="description" content="Portfolio website for filmmaker showcasing filmography, reel, and contact information." />
+</head>
+<body>
+  <header class="nav">
+    <a class="logo" href="index.html" data-dynamic-name>Your Name</a>
+    <nav aria-label="Primary">
+      <a href="portfolio.html">Work</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" aria-label="Intro">
+      <video class="hero-video" autoplay muted loop playsinline poster="images/LQUB_still_1.png">
+        <!-- Replace with your reel video file or remove <source> and embed from Vimeo -->
+        <source src="videos/reel.mp4" type="video/mp4" />
+      </video>
+      <div class="hero-overlay">
+        <h1>Jorge André</h1>
+        <p class="tagline">Director · Cinematographer · Editor</p>
+        <div class="cta-row">
+          <a class="btn primary" href="portfolio.html">View My Work</a>
+          <a class="btn ghost" href="about.html">About Me</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="featured" aria-labelledby="featured-heading">
+      <h2 id="featured-heading">Featured Projects</h2>
+      <div class="grid" id="featured-projects">
+        <!-- Featured projects will be dynamically loaded here -->
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>© <span id="year"></span> <span data-footer-name>Your Name</span>. All rights reserved.</p>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    fetch('data/projects.json')
+      .then(response => response.json())
+      .then(projects => {
+        const container = document.getElementById('featured-projects');
+
+        if (projects.length === 0) {
+          container.innerHTML = '<p>No featured projects available.</p>';
+          return;
+        }
+
+        // Filter featured projects
+        const featuredProjects = projects.filter(project => project.featured);
+
+        // Add featured projects to the grid
+        featuredProjects.forEach(project => {
+          const article = document.createElement('article');
+          article.className = 'card';
+          article.setAttribute('role', 'button');
+          article.setAttribute('tabindex', '0');
+          article.setAttribute('data-modal-target', `#${project.id}`);
+          article.innerHTML = `
+            <img src="${project.still}" alt="Featured still for '${project.title}'" />
+            <div class="card-overlay">
+              <h3>${project.title}</h3>
+              <p>${project.categories.join(' · ')} · ${project.year}</p>
+            </div>
+          `;
+          container.appendChild(article);
+        });
+
+        // Add modals for featured projects
+        const modalContainer = document.createElement('div');
+        featuredProjects.forEach(project => {
+          const modal = document.createElement('div');
+          modal.className = 'modal';
+          modal.id = project.id;
+          modal.setAttribute('aria-hidden', 'true');
+          modal.setAttribute('aria-labelledby', `${project.id}-title`);
+          modal.setAttribute('role', 'dialog');
+          modal.innerHTML = `
+            <div class="modal-backdrop" data-close></div>
+            <div class="modal-panel" role="document">
+              <button class="modal-close" aria-label="Close" data-close>&times;</button>
+              <img class="modal-poster" src="${project.poster}" alt="Poster for ${project.title}" />
+              <div class="modal-body">
+                <h3 id="${project.id}-title">${project.title}</h3>
+                <p class="role">Role: ${project.role}</p>
+                <p class="meta">${project.categories.join(' · ')} · ${project.duration} · ${project.year}</p>
+                <p class="synopsis">${project.synopsis}</p>
+                <div class="embed">
+                ${project.embed
+                  ? `<iframe title="${project.title} - Trailer" src="${project.embed}" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`
+                  : `<img src="${project.still}" alt="${project.title} Still" class="embed-fallback"/>`}
+              </div>
+
+                ${project.festivals && project.festivals.length > 0 && project.festivals[0] !== "N/A" ? `
+                <h4>Festivals & Screenings</h4>
+                <ul class="festivals-list">
+                  ${project.festivals.map(festival => `<li>${festival}</li>`).join('')}
+                </ul>
+              ` : ""}
+              </div>
+            </div>
+          `;
+          modalContainer.appendChild(modal);
+        });
+
+        // Append modals to the body
+        document.body.appendChild(modalContainer);
+      })
+      .catch(error => {
+        console.error('Error loading featured projects:', error);
+        const container = document.getElementById('featured-projects');
+        container.innerHTML = '<p>Failed to load featured projects.</p>';
+      });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const video = document.querySelector('.hero-video');
+      video.style.opacity = '0'; // Hide video initially
+      video.addEventListener('loadeddata', () => {
+        video.style.opacity = '1'; // Show video once it's loaded
+      });
+    });
+  </script>
+</body>
+</html>

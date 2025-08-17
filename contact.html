@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — Jorge André</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+  <meta name="description" content="Contact the filmmaker for collaborations, production, and festival inquiries." />
+</head>
+<body>
+  <header class="nav">
+    <a class="logo" href="index.html" data-dynamic-name>Your Name</a>
+    <nav aria-label="Primary">
+      <a href="portfolio.html">Work</a>
+      <a href="about.html">About</a>
+      <a class="active" href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main class="wrap contact fade-in">
+    <h1 class="page-title">Contact</h1>
+    <p>For production inquiries, screenings, or collaborations, tírame:</p>
+
+    <!-- Use Formspree/Netlify forms; replace 'your_form_id' with your Formspree ID -->
+    <form class="contact-form" action="hhttps://formspree.io/f/mblkbvzl" method="POST">
+      <label>
+        Name
+        <input type="text" name="name" required />
+      </label>
+      <label>
+        Email
+        <input type="email" name="email" required />
+      </label>
+      <label>
+        Message
+        <textarea name="message" rows="6" required></textarea>
+      </label>
+      <button class="btn primary" type="submit">Send</button>
+    </form>
+
+    <div class="socials">
+      <a href="https://www.instagram.com/jorqe.andre?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" aria-label="Instagram">Instagram</a>
+      <a href="https://vimeo.com/jorgeandresf" aria-label="Vimeo">Vimeo</a>
+      <!-- <a href="#" aria-label="LinkedIn">LinkedIn</a>
+      <a href="#" aria-label="IMDb">IMDb</a> -->
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>© <span id="year"></span> <span data-footer-name>Your Name</span>. All rights reserved.</p>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

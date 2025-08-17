@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio — Your Name</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+  <meta name="description" content="Filterable filmography showcasing director, cinematography, and editing work." />
+</head>
+<body>
+  <header class="nav">
+    <a class="logo" href="index.html" data-dynamic-name>Your Name</a>
+    <nav aria-label="Primary">
+      <a class="active" href="portfolio.html">Work</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <section aria-labelledby="filters-heading">
+      <h1 id="filters-heading" class="page-title">Filmography</h1>
+      <div class="filters" role="toolbar" aria-label="Project filters">
+        <button class="filter-btn active" data-filter="all" aria-pressed="true">All</button>
+        <button class="filter-btn" data-filter="director">Director</button>
+        <button class="filter-btn" data-filter="dp">Cinematographer</button>
+        <button class="filter-btn" data-filter="editor">Editor</button>
+        <button class="filter-btn" data-filter="producer">Producer</button>
+        <button class="filter-btn" data-filter="documentary">Documentary</button>
+        <button class="filter-btn" data-filter="fiction">Fiction</button>
+        <button class="filter-btn" data-filter="drama">Drama</button>
+        <button class="filter-btn" data-filter="socials">Socials</button>
+      </div>
+    </section>
+
+    <section class="grid" aria-label="Projects" id="portfolio-projects">
+      <!-- Projects will be dynamically loaded here -->
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>© <span id="year"></span> <span data-footer-name>Your Name</span>. All rights reserved.</p>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script>
+    fetch('data/projects.json')
+      .then(response => response.json())
+      .then(projects => {
+        const container = document.getElementById('portfolio-projects');
+
+        if (projects.length === 0) {
+          container.innerHTML = '<p>No projects available.</p>';
+          return;
+        }
+
+        // Dynamically create project cards and modals
+        projects.forEach(project => {
+          // Create project card
+          const article = document.createElement('article');
+          article.className = `card project fade-in ${project.categories.join(' ')}`;
+          article.setAttribute('role', 'button');
+          article.setAttribute('tabindex', '0');
+          article.setAttribute('data-modal-target', `#${project.id}`); // Ensure this matches the modal ID
+          article.innerHTML = `
+            <img src="${project.still}" alt="Still from '${project.title}'" />
+            <div class="card-overlay">
+              <h3>${project.title}</h3>
+              <p>${project.categories.join(' · ')} · ${project.year}</p>
+            </div>
+          `;
+          container.appendChild(article);
+
+          // Create corresponding modal
+          const modal = document.createElement('div');
+          modal.className = 'modal';
+          modal.id = project.id; // Ensure this matches the data-modal-target
+          modal.setAttribute('aria-hidden', 'true');
+          modal.setAttribute('aria-labelledby', `${project.id}-title`);
+          modal.setAttribute('role', 'dialog');
+          modal.innerHTML = `
+            <div class="modal-backdrop" data-close></div>
+            <div class="modal-panel" role="document">
+              <button class="modal-close" aria-label="Close" data-close>&times;</button>
+              <img class="modal-poster" src="${project.poster}" alt="Poster for ${project.title}" />
+              <div class="modal-body">
+                <h3 id="${project.id}-title">${project.title}</h3>
+                <p class="role">Role: ${project.role}</p>
+                <p class="meta">${project.categories.join(' · ')} · ${project.duration} · ${project.year}</p>
+                <p class="synopsis">${project.synopsis}</p>
+                <div class="embed">
+                ${project.embed
+                  ? `<iframe title="${project.title} - Trailer" src="${project.embed}" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`
+                  : `<img src="${project.still}" alt="${project.title} Still" class="embed-fallback"/>`}
+              </div>
+                ${project.festivals && project.festivals.length > 0 && project.festivals[0] !== "N/A" ? `
+              <h4>Festivals & Screenings</h4>
+              <ul class="festivals-list">
+                ${project.festivals.map(festival => `<li>${festival}</li>`).join('')}
+              </ul>
+            ` : ""}
+              </div>
+            </div>
+          `;
+          document.body.appendChild(modal); // Append modal to the body
+        });
+      })
+      .catch(error => {
+        console.error('Error loading projects:', error);
+        const container = document.getElementById('portfolio-projects');
+        container.innerHTML = '<p>Failed to load projects.</p>';
+      });
+  </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const filterButtons = document.querySelectorAll('.filter-btn');
+      const container = document.getElementById('portfolio-projects');
+
+      filterButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          // Remove active class from all buttons
+          filterButtons.forEach(b => {
+            b.classList.remove('active');
+            b.setAttribute('aria-pressed', 'false');
+          });
+
+          // Add active to clicked button
+          btn.classList.add('active');
+          btn.setAttribute('aria-pressed', 'true');
+
+          const filter = btn.getAttribute('data-filter');
+          const projects = container.querySelectorAll('.project');
+
+          projects.forEach(project => {
+            if (
+              filter === 'all' ||
+              project.classList.contains(filter) ||
+              (filter === 'director' && project.classList.contains('co-director')) // Include co-director for director filter
+            ) {
+              project.style.display = '';
+            } else {
+              project.style.display = 'none';
+            }
+          });
+        });
+      });
+    });
+  </script>
+</body>
+</html>
