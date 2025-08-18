@@ -24,7 +24,7 @@
 
   <main>
     <section class="hero" aria-label="Intro">
-      <video class="hero-video"  muted loop playsinline preload="auto" poster="images/LQUB_still_1.png">
+      <video class="hero-video"  muted loop playsinline preload="auto" poster="images/LQUB_still_lqip.jpeg">
         <source src="videos/reel.mp4" type="video/mp4" />
       </video>
     
@@ -116,6 +116,25 @@
           article.setAttribute('role', 'button');
           article.setAttribute('tabindex', '0');
           article.setAttribute('data-modal-target', `#${project.id}`);
+          // Use placeholder as initial src
+  const placeholderStill = `images/LQUB_still_lqip.jpeg`;
+  const img = document.createElement('img');
+  img.src = placeholderStill;
+  img.alt = `Still from '${project.title}'`;
+  img.style.filter = 'blur(10px)';        // optional blur effect
+  img.style.transition = 'filter 0.5s ease, opacity 0.5s ease';
+  img.style.opacity = '0.5';
+
+  // Preload full image
+  const fullImg = new Image();
+  fullImg.src = project.still;
+  fullImg.onload = () => {
+    img.src = fullImg.src;
+    img.style.filter = 'blur(0)';
+    img.style.opacity = '1';
+  };
+
+  article.appendChild(img);
           article.innerHTML = `
             <img src="${project.still}" alt="Featured still for '${project.title}'" />
             <div class="card-overlay">
@@ -125,6 +144,7 @@
           `;
           container.appendChild(article);
         });
+        
 
         // Add modals for featured projects
         const modalContainer = document.createElement('div');
