@@ -24,10 +24,15 @@
 
   <main>
     <section class="hero" aria-label="Intro">
-      <video class="hero-video" autoplay muted loop playsinline poster="images/LQUB_still_1.png">
-        <!-- Replace with your reel video file or remove <source> and embed from Vimeo -->
+      <video class="hero-video" autoplay muted loop playsinline preload="auto" poster="images/LQUB_still_1.png">
         <source src="videos/reel.mp4" type="video/mp4" />
       </video>
+    
+      <!-- Tap to play overlay -->
+      <div class="video-overlay" id="video-overlay">
+        <button id="play-btn">▶</button>
+      </div>
+    
       <div class="hero-overlay">
         <h1>Jorge André</h1>
         <p class="tagline">Director · Cinematographer · Editor</p>
@@ -37,6 +42,7 @@
         </div>
       </div>
     </section>
+    
 
     <section class="featured" aria-labelledby="featured-heading">
       <h2 id="featured-heading">Featured Projects</h2>
@@ -128,13 +134,33 @@
         container.innerHTML = '<p>Failed to load featured projects.</p>';
       });
 
-    document.addEventListener('DOMContentLoaded', () => {
-      const video = document.querySelector('.hero-video');
-      video.style.opacity = '0'; // Hide video initially
-      video.addEventListener('loadeddata', () => {
-        video.style.opacity = '1'; // Show video once it's loaded
+      document.addEventListener('DOMContentLoaded', () => {
+  const video = document.querySelector('.hero-video');
+  const overlay = document.getElementById('video-overlay');
+  const playBtn = document.getElementById('play-btn');
+
+  const tryPlay = () => {
+    video.play()
+      .then(() => {
+        overlay.style.display = 'none'; // hide overlay if autoplay worked
+      })
+      .catch(() => {
+        overlay.style.display = 'flex'; // show overlay if autoplay blocked
       });
+  };
+
+  // Try autoplay once loaded
+  video.addEventListener('canplaythrough', tryPlay);
+
+  // Fallback: user clicks play
+  playBtn.addEventListener('click', () => {
+    video.muted = true;
+    video.play().then(() => {
+      overlay.style.display = 'none';
     });
+  });
+});
+
   </script>
 </body>
 </html>

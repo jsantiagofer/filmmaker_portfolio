@@ -203,5 +203,31 @@ body{
 
 }
 
+.video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.video-overlay button {
+  font-family: 'Playfair Display', serif; /* matches your header */
+  font-size: 2rem;
+  color: white;
+  background: rgba(0,0,0,0.5); /* semi-transparent for cinematic look */
+  /* padding: 2.75rem 2rem; */
+  border: 1px transparent;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
 
 
