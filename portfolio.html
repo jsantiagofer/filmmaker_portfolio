@@ -58,10 +58,22 @@
   </footer>
 
   <script src="js/main.js"></script>
+  
   <script>
+    function preloadImages(projects) {
+  projects.forEach(p => {
+    const img1 = new Image();
+    img1.src = p.still;
+
+    const img2 = new Image();
+    img2.src = p.poster;
+  });
+}
+
     fetch('data/projects.json')
       .then(response => response.json())
       .then(projects => {
+        preloadImages(projects);
         const container = document.getElementById('portfolio-projects');
 
         if (projects.length === 0) {
@@ -78,7 +90,7 @@
           article.setAttribute('tabindex', '0');
           article.setAttribute('data-modal-target', `#${project.id}`); // Ensure this matches the modal ID
           article.innerHTML = `
-            <img src="${project.still}" alt="Still from '${project.title}'" />
+            <img src="${project.still}" alt="Still from '${project.title}'" loading="lazy" />
             <div class="card-overlay">
               <h3>${project.title}</h3>
               <p>${project.categories.join(' · ')} · ${project.year}</p>
