@@ -83,20 +83,45 @@
 
         // Dynamically create project cards and modals
         projects.forEach(project => {
-          // Create project card
-          const article = document.createElement('article');
-          article.className = `card project fade-in ${project.categories.join(' ')}`;
-          article.setAttribute('role', 'button');
-          article.setAttribute('tabindex', '0');
-          article.setAttribute('data-modal-target', `#${project.id}`); // Ensure this matches the modal ID
-          article.innerHTML = `
-            <img src="${project.still}" alt="Still from '${project.title}'" loading="lazy" />
-            <div class="card-overlay">
-              <h3>${project.title}</h3>
-              <p>${project.categories.join(' · ')} · ${project.year}</p>
-            </div>
-          `;
-          container.appendChild(article);
+  // Create project card
+  const article = document.createElement('article');
+  article.className = `card project fade-in ${project.categories.join(' ')}`;
+  article.setAttribute('role', 'button');
+  article.setAttribute('tabindex', '0');
+  article.setAttribute('data-modal-target', `#${project.id}`);
+
+  // Use placeholder as initial src
+  const placeholderStill = `images/lqip/${project.still.split('/').pop()}`;
+  const img = document.createElement('img');
+  img.src = placeholderStill;
+  img.alt = `Still from '${project.title}'`;
+  img.style.filter = 'blur(10px)';        // optional blur effect
+  img.style.transition = 'filter 0.5s ease, opacity 0.5s ease';
+  img.style.opacity = '0.5';
+
+  // Preload full image
+  const fullImg = new Image();
+  fullImg.src = project.still;
+  fullImg.onload = () => {
+    img.src = fullImg.src;
+    img.style.filter = 'blur(0)';
+    img.style.opacity = '1';
+  };
+
+  article.appendChild(img);
+
+  // Overlay content
+  const overlay = document.createElement('div');
+  overlay.className = 'card-overlay';
+  overlay.innerHTML = `
+    <h3>${project.title}</h3>
+    <p>${project.categories.join(' · ')} · ${project.year}</p>
+  `;
+  article.appendChild(overlay);
+
+  container.appendChild(article);
+  
+
 
           // Create corresponding modal
           const modal = document.createElement('div');
@@ -139,6 +164,7 @@
       });
   </script>
   <script>
+    
     document.addEventListener('DOMContentLoaded', () => {
       const filterButtons = document.querySelectorAll('.filter-btn');
       const container = document.getElementById('portfolio-projects');
