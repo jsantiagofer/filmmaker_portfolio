@@ -113,12 +113,23 @@ body{
   
   
 }
-.modal-poster{ width: 100%;           /* full width on mobile */
-  height: auto;
-  max-height: 40vh;      /* limit vertical space */
+.modal-poster {
+  width: 100%;           /* full width on all devices */
+  height: 100%;
   object-fit: contain;
-  border-radius: 8px; 
-  background:#111; background-color: #000 } 
+  border-radius: 8px;
+  background: #000;
+}
+
+/* Mobile-specific style */
+@media (max-width: 768px) {
+  .modal-poster {
+    max-height: 40vh;    /* limit vertical space only on mobile */
+  }
+}
+
+
+
 .modal-body{ padding:1.5rem; overflow-y: auto; max-height: 80vh; font-size: 1rem; line-height: 1.6; }
 .modal-body h3{ margin-top:0; font-family:'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 1rem; }
 .modal-body .meta{ margin-top:-.4rem }
