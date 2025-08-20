@@ -21,8 +21,8 @@
     "year": 2025,
     "duration": "17 min",
     "synopsis": "In 1950s Puerto Rico, a resilient woman tries to leave behind a controversial chapter of her life, in a society determined to make and judge all of her decisions.",
-    "poster": "images/LQUB_still_1.png",
-    "still": "images/LQUB_still_2.png",
+    "poster": "images/LQUB_still_1.jpeg",
+    "still": "images/LQUB_still_2.jpeg",
     "embed": "",
     "festivals": ["Official Selection — Puerto Rico Film Festival."],
     "featured": true
@@ -36,7 +36,7 @@
     "duration": "29 min",
     "synopsis": "An observational documentary that explores themes of collective care and resistance in a marginalized community in Peñuelas.",
     "poster": "images/TEA_poster.jpeg",
-    "still": "images/TEA_still.png",
+    "still": "images/TEA_still.jpeg",
     "embed": "https://www.youtube.com/embed/wTPr00bwudA",
     "festivals": [
       "Honorable Mention for Short Documentary — International Puerto Rican Heritage Film Festival",
@@ -56,7 +56,7 @@
     "duration": "5 min",
     "synopsis": "<b>Directed by Carhianie J. Vargas Padín.</b> The Water Protectors is a student-made documentary pilot that briefly explores the topics of hyper development, unregulated sewage disposal, contamination, climate change, and community action in the west coast of Puerto Rico through initiatives led by Surfrider Foundation Rincón.",
     "poster": "images/TWP_poster.jpeg",
-    "still": "images/TWP_still_2.png",
+    "still": "images/TWP_still_2.jpeg",
     "embed": "",
     "festivals": ["Official Selection — Cine Pa' Las Calles"],
     "featured": false
@@ -70,7 +70,7 @@
     "duration": "4 min",
     "synopsis": "<b>Directed by Miguel A. Sierra Bartolomei.</b> In the diaspora, Esmeralda is transported back to her youth in Puerto Rico through her senses when she finds a guava on the supermarket shelf.",
     "poster": "images/GHTE_poster.jpeg",
-    "still": "images/GHTE_still.png",
+    "still": "images/GHTE_still.jpeg",
     "embed": "",
     "festivals": ["Official Selection — Isabela International Film Festival", "Official Selection — Cine Pa' Las Calles"],
     "featured": false
@@ -84,7 +84,7 @@
     "duration": "N/A",
     "synopsis": "Filmed and photographed events for DanzActiva.",
     "poster": "images/DA_poster.png",
-    "still": "images/DA_still.jpg",
+    "still": "images/DA_still.jpeg",
     "embed": "https://www.youtube.com/embed/t7nxB1aY3rU",
     "festivals": [],
     "featured": false
@@ -98,7 +98,7 @@
     "duration": "2 min",
     "synopsis": "Ad for my University's Capstone Project.",
     "poster": "images/AC_poster.png",
-    "still": "images/AC_still.png",
+    "still": "images/AC_still.jpeg",
     "embed": "https://www.youtube.com/embed/D9Vt9JboOcA",
     "festivals": [],
     "feature": false
@@ -112,7 +112,7 @@
     "duration": "8 min",
     "synopsis": "A short documentary exploring Don Ángel's philosophy about land.",
     "poster": "images/DonA_poster.png",
-    "still": "images/DonA_still.png",
+    "still": "images/DonA_still.jpeg",
     "embed": "https://www.youtube.com/embed/y2BIAPf4-Tw",
     "festivals": [],
     "feature": false
@@ -126,7 +126,7 @@
     "duration": "3 min",
     "synopsis": "Inspired by Welles' Citizen Kane.",
     "poster": "images/CK_poster.png",
-    "still": "images/CK_still.png",
+    "still": "images/CK_still.jpeg",
     "embed": "https://www.youtube.com/embed/EksCO2U9gYg",
     "festivals": [],
     "feature": false
@@ -140,7 +140,7 @@
     "duration": "3 min",
     "synopsis": "Inspired by Ozu's Tokyo Story.",
     "poster": "images/OZU_poster.png",
-    "still": "images/OZU_still.png",
+    "still": "images/OZU_still.jpeg",
     "embed": "https://www.youtube.com/embed/zsbsbIOkZW8",
     "festivals": [],
     "feature": false
@@ -154,7 +154,7 @@
     "duration": "2 min",
     "synopsis": "Inspired by Ford's The Searchers.",
     "poster": "images/TS_poster.png",
-    "still": "images/TS_still.png",
+    "still": "images/TS_still.jpeg",
     "embed": "https://www.youtube.com/embed/ufYf5IzqYcQ", 
     "festivals": [],
     "feature": false
